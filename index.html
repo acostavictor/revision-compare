@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revision Compare | What changed between these two sets?</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="pdfextract.js"></script>
+<script src="compare.js"></script>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand-row">
+    <span class="logo"><svg viewBox="0 0 64 64" width="44" height="44" aria-label="Revision Compare logo"><rect width="64" height="64" rx="14" fill="#0B101E" stroke="#38BDF8" stroke-width="2"/><path d="M20 14 h16 l10 10 v26 a2 2 0 0 1 -2 2 h-24 a2 2 0 0 1 -2 -2 v-34 a2 2 0 0 1 2 -2 z" fill="none" stroke="#38BDF8" stroke-width="3"/><path d="M36 14 v10 h10" fill="none" stroke="#38BDF8" stroke-width="3"/><path d="M16 36 h32" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/><path d="M16 36 l6 -6 M16 36 l6 6 M48 36 l-6 -6 M48 36 l-6 6" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <span class="brand-name">Revision Compare</span>
+  </div>
+  <div class="badge">FREE BETA</div>
+  <h1>What changed<br><span>between these two sets?</span></h1>
+  <p>Drop in the earlier set and the later set. The app matches sheets by sheet number and reports what was added, removed, and changed. Nothing uploads anywhere. Everything runs in your browser.</p>
+</div></header>
+<main><div class="wrap">
+
+  <div class="disclaimer"><strong>What this is not.</strong> This is a text comparison, not a code review and not a substitute for a human checker. Sheets are matched by sheet number, so a renumbered sheet shows up as one removed plus one added. Scanned pages with no text layer cannot be compared. Always confirm against the sheets themselves before you act on a result.</div>
+
+  <div class="steps" id="steps">
+    <div class="step">1. Earlier set</div>
+    <div class="step">2. Later set</div>
+    <div class="step">3. See what changed</div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>1. Earlier set</h2>
+      <p class="lede">The revision you are comparing from. PDFs only, as many files as the set has.</p>
+      <div class="dropzone" id="dropzoneA">
+        <strong>Drop the earlier set here, or click to choose files</strong>
+        <p>Read in your browser only. Nothing is sent to any server.</p>
+      </div>
+      <input type="file" id="fileInputA" accept=".pdf" multiple hidden>
+      <div class="chips" id="chipsA"></div>
+      <p class="status" id="statusA">No files yet.</p>
+    </div>
+
+    <div class="card">
+      <h2>2. Later set</h2>
+      <p class="lede">The revision you are comparing to. Comparison runs on its own once both sets have files.</p>
+      <div class="dropzone" id="dropzoneB">
+        <strong>Drop the later set here, or click to choose files</strong>
+        <p>Read in your browser only. Nothing is sent to any server.</p>
+      </div>
+      <input type="file" id="fileInputB" accept=".pdf" multiple hidden>
+      <div class="chips" id="chipsB"></div>
+      <p class="status" id="statusB">No files yet.</p>
+    </div>
+  </div>
+
+  <div id="results">
+    <div class="card">
+      <h2>3. What changed</h2>
+      <p class="status" id="compareStatus"></p>
+      <div class="stats">
+        <div class="stat"><b id="statSheetsA">0</b><span>sheets in earlier set</span></div>
+        <div class="stat"><b id="statSheetsB">0</b><span>sheets in later set</span></div>
+        <div class="stat"><b id="statAdded">0</b><span>added</span></div>
+        <div class="stat"><b id="statRemoved">0</b><span>removed</span></div>
+        <div class="stat"><b id="statChanged">0</b><span>changed</span></div>
+        <div class="stat"><b id="statUnchanged">0</b><span>unchanged</span></div>
+      </div>
+      <div class="panel added">
+        <h3>Added in the later set</h3>
+        <ul id="addedList"></ul>
+      </div>
+      <div class="panel removed">
+        <h3>Removed from the earlier set</h3>
+        <ul id="removedList"></ul>
+      </div>
+      <div class="panel changed">
+        <h3>Changed</h3>
+        <ul id="changedList"></ul>
+      </div>
+      <details class="panel unchanged">
+        <summary id="unchangedSummary">Unchanged (0)</summary>
+        <ul id="unchangedList"></ul>
+      </details>
+      <div class="panel verify">
+        <h3>Could not compare</h3>
+        <ul id="issuesList"></ul>
+      </div>
+      <p class="lede">Sheets are matched by sheet number. A renumbered sheet appears as one removed plus one added. Title detection is a heuristic: the longest line on the page. Content comparison uses the page text, so a re-export that only reflows text can still show as changed.</p>
+      <div class="actions no-print">
+        <button class="ghost" onclick="window.print()">Print this report</button>
+        <button class="ghost" id="resetBtn">Start over</button>
+      </div>
+    </div>
+  </div>
+
+</div></main>
+<footer><div class="wrap">
+  <p>Free beta. A companion to <a href="https://markupvalidate.com">Markup &amp; Validate</a>: the diff is free, the full 17 checks plus gated sign-off live in the main app. Questions: <a href="mailto:support@markupvalidate.com">support@markupvalidate.com</a>.</p>
+</div></footer>
+<script src="app.js"></script>
+</body>
+</html>
